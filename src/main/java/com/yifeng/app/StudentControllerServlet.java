@@ -43,7 +43,7 @@ public class StudentControllerServlet extends HttpServlet {
 	private void listStudents(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		List<Student> students = studentDbUtil.getStudents();
 		request.setAttribute("STUDENT_LIST", students);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/list-students.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/list-student.jsp");
 		dispatcher.forward(request, response);
 	}
 	
