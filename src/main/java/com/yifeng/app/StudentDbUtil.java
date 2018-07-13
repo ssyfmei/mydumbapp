@@ -1,4 +1,4 @@
-package  com.yifeng.app
+package  com.yifeng.app;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -14,7 +14,7 @@ public class StudentDbUtil {
 		this.dataSource = dataSource;
 	}
 	
-	public List<Student> getStudens() throws Exception { 
+	public List<Student> getStudents() throws Exception { 
 		List<Student> students = new ArrayList<>();
 		
 		Connection myConn=null;
