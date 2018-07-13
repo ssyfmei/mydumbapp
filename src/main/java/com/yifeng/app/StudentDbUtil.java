@@ -31,7 +31,7 @@ public class StudentDbUtil {
 			while(myRs.next()) {
 				int id = myRs.getInt("id");
 				String firstName = myRs.getString("first_name");
-				String lastName = myRs.getString("lastName");
+				String lastName = myRs.getString("last_name");
 				String email = myRs.getString("email");
 				
 				Student tempStudent = new Student(firstName, lastName, email);

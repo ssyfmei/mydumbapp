@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/mydumbapp">
+<Context path="">
 	<Resource
 		name="jdbc/web_student_tracker"
 		auth="Container"
@@ -9,5 +9,5 @@
 		username="webstudent"
 		password="3ZZPl048"
 		driverClasName="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/web_student_tracker?useSSL=false"/>
+		url="jdbc:mysql://localhost:3306/web_student_tracker?useSSL=false&amp;serverTimezone=UTC"/>
 </Context>
