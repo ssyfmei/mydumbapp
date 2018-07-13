@@ -1,4 +1,4 @@
-package  com.yifeng.app
+package  com.yifeng.app;
 
 public class Student{
 	private int id;
