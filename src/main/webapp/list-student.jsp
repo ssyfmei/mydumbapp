@@ -22,6 +22,7 @@
 				<td>${tempStudent.lastName}</td>
 				<td>${tempStudent.email}</td>
 			</tr>
+			</c:forEach>
 		</table>
 	</div>
 </body>
