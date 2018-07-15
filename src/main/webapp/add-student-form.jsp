@@ -27,7 +27,7 @@
 				</tr>
 				<tr>
 					<td><label></label>
-					<td><input type="button" value="save"/></td>
+					<td><input type="submit" value="Save"/></td>
 				</tr>
 			  </tbody>
 			</table>
