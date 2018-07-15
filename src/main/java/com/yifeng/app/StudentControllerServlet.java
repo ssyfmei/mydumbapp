@@ -67,7 +67,7 @@ public class StudentControllerServlet extends HttpServlet {
 	}
 
 	private void loadStudent(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String theStudentId = request.getParameter("StudentId");
+		String theStudentId = request.getParameter("studentId");
 		Student theStudent = studentDbUtil.getStudent(theStudentId);
 		request.setAttribute("THE_STUDENT", theStudent);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/update-student-form.jsp");
