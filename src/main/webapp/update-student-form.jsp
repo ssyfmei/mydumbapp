@@ -8,7 +8,7 @@
 		<h2>Foo University</h2>
 	</div>
 	<div id = "container">
-		<h3>Add Student</h3>
+		<h3>Update Student</h3>
 		<form action="StudentControllerServlet" method="GET">
 		
 			<input type="hidden" name="command" value="UPDATE" />

@@ -57,7 +57,7 @@ public class StudentControllerServlet extends HttpServlet {
 		}
 	}
 	private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int theStudentId = Integer.parseInt(request.getParameter("StudentId"));
+		int theStudentId = Integer.parseInt(request.getParameter("studentId"));
 		String firstName = request.getParameter("firstName");
 		String lastName  = request.getParameter("lastName");
 		String email = request.getParameter("email");
