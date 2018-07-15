@@ -118,10 +118,25 @@ public class StudentDbUtil {
 						+"set first_name=?, last_name=?, email=? "
 						+"where id=?";
 			myStmt = myConn.prepareStatement(sql);
-			myStmt.setString(1, student.getFirstName()+"fdfafafa");
+			myStmt.setString(1, student.getFirstName());
 			myStmt.setString(2, student.getLastName());
 			myStmt.setString(3, student.getEmail());
 			myStmt.setInt(4, student.getId());
+			myStmt.execute();
+		}
+		finally {
+			close(myConn,myStmt,null);
+		}
+	}
+	public void deleteStudent(int theStudentId) throws SQLException {
+		Connection  		myConn=null;
+		PreparedStatement  	myStmt=null;
+		
+		try {
+			myConn = dataSource.getConnection();
+			String sql = "delete from student where id=?";
+			myStmt = myConn.prepareStatement(sql);
+			myStmt.setInt(1, theStudentId);
 			myStmt.execute();
 		}
 		finally {
