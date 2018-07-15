@@ -43,8 +43,10 @@ public class StudentControllerServlet extends HttpServlet {
 				break;
 			case "LOAD":
 				loadStudent(request, response);
+				break;
 			case "UPDATE":
 				updateStudent(request, response);
+				break;
 			default:
 				listStudents(request, response);
 				break;
