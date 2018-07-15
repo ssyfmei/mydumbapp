@@ -118,13 +118,11 @@ public class StudentDbUtil {
 						+"set first_name=?, last_name=?, email=? "
 						+"where id=?";
 			myStmt = myConn.prepareStatement(sql);
-			myStmt.setString(1, student.getFirstName());
+			myStmt.setString(1, student.getFirstName()+"fdfafafa");
 			myStmt.setString(2, student.getLastName());
 			myStmt.setString(3, student.getEmail());
 			myStmt.setInt(4, student.getId());
-			if(!myStmt.execute()) {
-				throw new SQLException("updation failed");
-			}
+			myStmt.execute();
 		}
 		finally {
 			close(myConn,myStmt,null);
