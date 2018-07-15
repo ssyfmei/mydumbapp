@@ -33,8 +33,20 @@ public class StudentControllerServlet extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String command = request.getParameter("command");
+		if(command==null) command="LIST";
 		try {
-			listStudents(request, response);
+			switch (command) {
+			case "ADD":
+				addStudents(request, response);
+				break;
+			case "LIST":
+				listStudents(request, response);
+				break;
+			default:
+				listStudents(request, response);
+				break;
+			}
 		}
 		catch(Exception exp) {
 			throw new ServletException(exp);
@@ -47,4 +59,12 @@ public class StudentControllerServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
+	private void addStudents(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String firstName = request.getParameter("firstName");
+		String lastName  = request.getParameter("lastName");
+		String email = request.getParameter("email");
+		Student student = new Student(firstName, lastName, email);
+		studentDbUtil.addStudent(student);
+		listStudents(request, response);
+	}
 }

@@ -10,6 +10,9 @@
 		</div>
 	</div>
 	<div id="content">
+		<input type="button" value="Add Student"
+			   onclick="window.location.href='add-student-form.jsp';return false;"
+		/>
 		<table>
 			<tr>
 				<th>First Name</th>
