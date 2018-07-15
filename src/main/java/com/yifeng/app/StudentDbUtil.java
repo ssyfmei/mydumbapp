@@ -27,13 +27,13 @@ public class StudentDbUtil {
 			myStmt.setString(1, student.getFirstName());
 			myStmt.setString(2, student.getLastName());
 			myStmt.setString(3, student.getEmail());
-			
 			myStmt.execute();
 		}
 		finally {
 			close(myConn,myStmt,myRs);
 		}
 	}
+	
 	public List<Student> getStudents() throws SQLException { 
 		List<Student> students = new ArrayList<>();
 		
@@ -53,8 +53,7 @@ public class StudentDbUtil {
 				String lastName = myRs.getString("last_name");
 				String email = myRs.getString("email");
 				
-				Student tempStudent = new Student(firstName, lastName, email);
-				
+				Student tempStudent = new Student(id, firstName, lastName, email);
 				students.add(tempStudent);
 			}
 			return students;
@@ -79,5 +78,55 @@ public class StudentDbUtil {
 			e.printStackTrace();
 		}
 		
+	}
+	public Student getStudent(String theStudentId) throws SQLException {
+		Student theStudent = null;
+		Connection  		myConn=null;
+		PreparedStatement  	myStmt=null;
+		ResultSet  			myRs  =null;
+		
+		try {
+			int studentId = Integer.parseInt(theStudentId);
+			myConn = dataSource.getConnection();
+			
+			String sql = "select * from student where id = ?";
+			myStmt = myConn.prepareStatement(sql);
+			myStmt.setInt(1, studentId);
+			myRs = myStmt.executeQuery();
+			
+			if(myRs.next()) {
+				String firstName = myRs.getString("first_name");
+				String lastName = myRs.getString("last_name");
+				String email = myRs.getString("email");
+				theStudent = new Student(firstName, lastName, email);
+			}
+			else {
+				throw new SQLException("Could not find student id: " + studentId);
+			}
+			return theStudent;
+		}
+		finally {
+			close(myConn,myStmt,myRs);
+		}
+	}
+	public void updateStudent(Student student) throws SQLException {
+		Connection  		myConn=null;
+		PreparedStatement  	myStmt=null;
+		
+		try {
+			myConn = dataSource.getConnection();
+			String sql = "update student "
+						+"set first_name=?, last_name=?, email=? "
+						+"where id=?";
+			myStmt = myConn.prepareStatement(sql);
+			myStmt.setString(1, student.getFirstName());
+			myStmt.setString(2, student.getLastName());
+			myStmt.setString(3, student.getEmail());
+			myStmt.setInt(4, student.getId());
+			myStmt.execute();
+		}
+		finally {
+			close(myConn,myStmt,null);
+		}
 	}
 }

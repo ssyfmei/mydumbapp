@@ -1,5 +1,4 @@
 package com.yifeng.app;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import javax.sql.DataSource;
 @WebServlet("/StudentControllerServlet")
 public class StudentControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	private StudentDbUtil studentDbUtil;
 	
 	@Resource(name="jdbc/web_student_tracker")
@@ -43,6 +41,10 @@ public class StudentControllerServlet extends HttpServlet {
 			case "LIST":
 				listStudents(request, response);
 				break;
+			case "LOAD":
+				loadStudent(request, response);
+			case "UPDATE":
+				updateStudent(request, response);
 			default:
 				listStudents(request, response);
 				break;
@@ -52,6 +54,24 @@ public class StudentControllerServlet extends HttpServlet {
 			throw new ServletException(exp);
 		}
 	}
+	private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int theStudentId = Integer.parseInt(request.getParameter("StudentId"));
+		String firstName = request.getParameter("firstName");
+		String lastName  = request.getParameter("lastName");
+		String email = request.getParameter("email");
+		Student student = new Student(theStudentId, firstName, lastName, email);
+		studentDbUtil.updateStudent(student);
+		listStudents(request, response);
+	}
+
+	private void loadStudent(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String theStudentId = request.getParameter("StudentId");
+		Student theStudent = studentDbUtil.getStudent(theStudentId);
+		request.setAttribute("THE_STUDENT", theStudent);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/update-student-form.jsp");
+		dispatcher.forward(request, response);
+	} 
+
 	private void listStudents(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		List<Student> students = studentDbUtil.getStudents();
 		request.setAttribute("STUDENT_LIST", students);
