@@ -17,7 +17,6 @@ public class StudentDbUtil {
 	public void addStudent(Student student) throws SQLException {
 		Connection myConn=null;
 		PreparedStatement  myStmt=null;
-		ResultSet  myRs  =null;
 		try {
 			myConn = dataSource.getConnection();
 			String sql = "insert into student"
@@ -30,7 +29,7 @@ public class StudentDbUtil {
 			myStmt.execute();
 		}
 		finally {
-			close(myConn,myStmt,myRs);
+			close(myConn,myStmt,null);
 		}
 	}
 	
@@ -123,7 +122,9 @@ public class StudentDbUtil {
 			myStmt.setString(2, student.getLastName());
 			myStmt.setString(3, student.getEmail());
 			myStmt.setInt(4, student.getId());
-			myStmt.execute();
+			if(!myStmt.execute()) {
+				throw new SQLException("updation failed");
+			}
 		}
 		finally {
 			close(myConn,myStmt,null);
