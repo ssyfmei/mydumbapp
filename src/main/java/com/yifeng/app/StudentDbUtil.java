@@ -96,8 +96,9 @@ public class StudentDbUtil {
 			if(myRs.next()) {
 				String firstName = myRs.getString("first_name");
 				String lastName = myRs.getString("last_name");
-				String email = myRs.getString("email");
-				theStudent = new Student(firstName, lastName, email);
+				String email 	= myRs.getString("email");
+				int id = myRs.getInt("id"); 
+				theStudent = new Student(id, firstName, lastName, email);
 			}
 			else {
 				throw new SQLException("Could not find student id: " + studentId);
