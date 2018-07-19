@@ -1,5 +1,4 @@
 package com.yifeng.app;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import javax.sql.DataSource;
 @WebServlet("/StudentControllerServlet")
 public class StudentControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	private StudentDbUtil studentDbUtil;
 	
 	@Resource(name="jdbc/web_student_tracker")
@@ -33,13 +31,58 @@ public class StudentControllerServlet extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String command = request.getParameter("command");
+		if(command==null) command="LIST";
 		try {
-			listStudents(request, response);
+			switch (command) {
+			case "ADD":
+				addStudents(request, response);
+				break;
+			case "LIST":
+				listStudents(request, response);
+				break;
+			case "LOAD":
+				loadStudent(request, response);
+				break;
+			case "UPDATE":
+				updateStudent(request, response);
+				break;
+			case "DELETE":
+				deleteStudent(request, response);
+				break;
+			default:
+				listStudents(request, response);
+				break;
+			}
 		}
 		catch(Exception exp) {
 			throw new ServletException(exp);
 		}
 	}
+	private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int theStudentId = Integer.parseInt(request.getParameter("studentId"));
+		studentDbUtil.deleteStudent(theStudentId);
+		listStudents(request, response);
+	}
+
+	private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int theStudentId = Integer.parseInt(request.getParameter("studentId"));
+		String firstName = request.getParameter("firstName");
+		String lastName  = request.getParameter("lastName");
+		String email = request.getParameter("email");
+		Student student = new Student(theStudentId, firstName, lastName, email);
+		studentDbUtil.updateStudent(student);
+		listStudents(request, response);
+	}
+
+	private void loadStudent(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String theStudentId = request.getParameter("studentId");
+		Student theStudent = studentDbUtil.getStudent(theStudentId);
+		request.setAttribute("THE_STUDENT", theStudent);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/update-student-form.jsp");
+		dispatcher.forward(request, response);
+	} 
+
 	private void listStudents(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		List<Student> students = studentDbUtil.getStudents();
 		request.setAttribute("STUDENT_LIST", students);
@@ -47,4 +90,12 @@ public class StudentControllerServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
+	private void addStudents(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String firstName = request.getParameter("firstName");
+		String lastName  = request.getParameter("lastName");
+		String email = request.getParameter("email");
+		Student student = new Student(firstName, lastName, email);
+		studentDbUtil.addStudent(student);
+		listStudents(request, response);
+	}
 }

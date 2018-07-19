@@ -1,3 +1,5 @@
+# Set by Yifeng
+/target/
 
 # Created by https://www.gitignore.io/api/eclipse
 
@@ -74,4 +76,3 @@ local.properties
 
 
 # End of https://www.gitignore.io/api/eclipse
-
