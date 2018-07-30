@@ -44,6 +44,16 @@
         <artifactId>mysql-connector-java</artifactId>
         <version>8.0.11</version>
     </dependency>
+    <dependency>
+	    <groupId>org.apache.struts</groupId>
+	    <artifactId>struts2-core</artifactId>
+	    <version>2.2.3</version>
+	</dependency>
+    <dependency>
+	    <groupId>org.apache.ibatis</groupId>
+	    <artifactId>ibatis-sqlmap</artifactId>
+	    <version>2.3.4.726</version>
+	</dependency>
 
   </dependencies>
   <build>
