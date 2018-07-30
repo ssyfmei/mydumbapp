@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="App_University">
+    
+    <parameterMap id="univeristy_map" class="map">
+        <parameter property="VIN_PASSPORT" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN" />
+        <parameter property="VIN_ID" jdbcType="INTEGER" javaType="java.lang.Long" mode="IN" />
+        <parameter property="VOUT_MSG" mode="OUT" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </parameterMap>
+    
+    <procedure id="share" parameterMap="share_map">
+        <![CDATA[
+        {call
+            PKG_YIFENG.APP_UNIVERSITY(?,?,?)
+        }
+        ]]>
+    </procedure>
+    
+</sqlMap>
